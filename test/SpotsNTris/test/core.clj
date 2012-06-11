@@ -5,6 +5,8 @@
 ;(deftest replace-me ;; FIXME: write
 ;  (is false "No tests have been written."))
 
+; TODO more test cases
+
 (deftest produce-f
     (is true (.equals "F+F--F+F--F+F--F+F--F+F--F+F" (produce "F--F--F" {"F" "F+F--F+F"}))))
 

@@ -1,10 +1,22 @@
 lsys-clj
 ========
-FIXME: write description
+Basic l-system as a first clojure contact. Disregard.
 
 ## Usage
 
-FIXME: write
+Try these start states, axioms and rules:
+
+Koch triangle(?):
+Start state: {"x" 0 "y" 499 "a" 0.0}
+Axiom: "F"
+Rules: {"F" "F+F-F-F+F"}
+(parse {"x" 0, "y" 299, "a" 0.0} (evolve 3 "F" {"F" "F+F-F-F+F"})))
+
+Quadratic koch island:
+Start state: {"x" 0 "y" 499 "a" 0.0}
+Axiom: "F+F+F+F"
+Rules: {"F" "F+F-F-FF+F+F-F"}
+(parse {"x" 0, "y" 499, "a" 0.0} (evolve 3 "F+F+F+F" {"F" "F+F-F-FF+F+F-    F"})))
 
 ## License
 

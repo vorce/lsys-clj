@@ -40,7 +40,7 @@
 ; in a certain state s
 ; Supported commands: F, + and -
 (defn parse-cmd [s cmd]
-    (if (.equals cmd "F") (forward s 20)
+    (if (.equals cmd "F") (forward s 6)
         (if (.equals cmd "+") (left s 90)
             (if (.equals cmd "-") (right s 90)))))
 
@@ -64,15 +64,20 @@
 
 (defn draw []
     (background 200)
-    (stroke-weight (random 8))
-    (parse {"x" 0, "y" 299, "a" (radians 0)} (evolve 3 "F" {"F" "F+F-F-F+F"})))
-    ;(parse {"x" 0, "y" 150, "a" (radians 0)} "F-FF+FF"))
+    ;(stroke-weight (random 8))
+    ; quad koch island
+    (parse {"x" 0, "y" 499, "a" 0.0} (evolve 3 "F+F+F+F" {"F" "F+F-F-FF+F+F-F"})))
+
+    ; Koch triangle(?)
+    ;(parse {"x" 0, "y" 299, "a" 0.0} (evolve 3 "F" {"F" "F+F-F-F+F"})))
+
+    ;(parse {"x" 0, "y" 150, "a" 0.0} "F-FF+FF"))
 
 (defsketch spots-n-tris
     :title "Clojure L-system"
     :setup setup
     :draw draw
-    :size [600 300])
+    :size [700 500])
 
 (defn -main []
     (println "Starting..."))
