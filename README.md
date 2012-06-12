@@ -15,7 +15,7 @@ Axiom: "F"
 
 Rules: {"F" "F+F-F-F+F"}
 
-(parse {"x" 0, "y" 299, "a" 0.0} (evolve 3 "F" {"F" "F+F-F-F+F"})))
+(parse {"x" 0, "y" 499, "a" 0.0} (evolve 3 "F" {"F" "F+F-F-F+F"})))
 
 
 Quadratic koch island:
