@@ -10,6 +10,7 @@ Sierpinksi triangle, dragon curve, quadratic koch island and a koch curve.
 See: https://en.wikipedia.org/wiki/L-system
 
 The parse method takes a start state and a command string. The command string
+can be obtained by running the evolve method.
 
 ## License
 
