@@ -4,29 +4,13 @@ Basic l-system as a first clojure contact. Disregard.
 
 ## Usage
 
-Try these start states, axioms and rules:
+The core.clj file contains a bunch of different examples in the draw method.
+Sierpinksi triangle, dragon curve, quadratic koch island and a koch curve.
 
+See: https://en.wikipedia.org/wiki/L-system
 
-Koch triangle(?):
-
-Start state: {"x" 0 "y" 499 "a" 0.0}
-
-Axiom: "F"
-
-Rules: {"F" "F+F-F-F+F"}
-
-(parse {"x" 0, "y" 299, "a" 0.0} (evolve 3 "F" {"F" "F+F-F-F+F"})))
-
-
-Quadratic koch island:
-
-Start state: {"x" 0 "y" 499 "a" 0.0}
-
-Axiom: "F+F+F+F"
-
-Rules: {"F" "F+F-F-FF+F+F-F"}
-
-(parse {"x" 0, "y" 499, "a" 0.0} (evolve 3 "F+F+F+F" {"F" "F+F-F-FF+F+F-    F"})))
+The parse method takes a start state and a command string. The command string
+can be obtained my running the evolve method.
 
 ## License
 
