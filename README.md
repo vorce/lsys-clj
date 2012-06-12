@@ -7,7 +7,7 @@ Basic l-system as a first clojure contact. Disregard.
 Try these start states, axioms and rules:
 
 
-Koch triangle(?):
+Koch curve:
 
 Start state: {"x" 0 "y" 499 "a" 0.0}
 
