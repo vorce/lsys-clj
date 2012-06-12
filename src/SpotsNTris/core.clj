@@ -72,8 +72,8 @@
     ;(stroke-weight (random 8))
 
     ; Sierpinski 2
-    (parse {"x" 100, "y" 50, "a" 0.0, "s" 30, "d" (radians 120)} (evolve 4
-        "F-B-B" {"F" "F-B+F+B-F", "B" "BB"})))
+    ;(parse {"x" 100, "y" 50, "a" 0.0, "s" 30, "d" (radians 120)} (evolve 4
+    ;    "F-B-B" {"F" "F-B+F+B-F", "B" "BB"})))
 
     ; Sierpinski triangle 1
     ;(parse {"x" 100, "y" 450, "a" 0.0, "s" 30, "d" (radians 60)} (evolve 4 "F" {"F" "B-F-B", "B" "F+B+F"})))
@@ -85,7 +85,7 @@
     ;(parse {"x" 125, "y" 400, "a" 0.0, "s" 5, "d" (radians 90)} (evolve 3 "F+F+F+F" {"F" "F+F-F-FF+F+F-F"})))
 
     ; Koch curve
-    ;(parse {"x" 80, "y" 480, "a" 0.0, "s" 20, "d" (radians 90)} (evolve 3 "F" {"F" "F+F-F-F+F"})))
+    ;(parse {"x" 15, "y" 420, "a" 0.0, "s" 25, "d" (radians 90)} (evolve 3 "F" {"F" "F+F-F-F+F"})))
 
     ; Test
     ;(parse {"x" 0, "y" 150, "a" 0.0, "s" 10, "d" (radians 90)} "F-FF+FF"))
