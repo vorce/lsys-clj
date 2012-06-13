@@ -4,6 +4,8 @@ Basic l-system as a first clojure contact. Disregard.
 
 ## Usage
 
+lein run
+
 The core.clj file contains a bunch of different examples in the draw method.
 Sierpinksi triangle, dragon curve, quadratic koch island and a koch curve.
 
