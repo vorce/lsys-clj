@@ -16,6 +16,6 @@ can be obtained by running the evolve method.
 
 ## License
 
-Copyright (C) 2012 Joel Carlbark
+Copyright (C) 2012 - 2016 Joel Carlbark
 
 Distributed under the Eclipse Public License, the same as Clojure.

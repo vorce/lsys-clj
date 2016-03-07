@@ -1,9 +1,6 @@
-(ns SpotsNTris.test.core
-  (:use [SpotsNTris.core])
+(ns lsysclj.test.core
+  (:use [lsysclj.core])
   (:use [clojure.test]))
-
-;(deftest replace-me ;; FIXME: write
-;  (is false "No tests have been written."))
 
 ; TODO more test cases
 

@@ -1,43 +1,35 @@
 ; L-system
-; 2012, Joel Carlbark
+; 2012 - 2016 Joel Carlbark
 
-(ns SpotsNTris.core
-    (:use quil.core)
-    (:gen-class))
+(ns lsysclj.core
+    (:require [quil.core :as q]
+              [quil.middleware :as m]))
 
 (defn setup []
-    (smooth)
-    (frame-rate 1)
-    (background 200)
-    (stroke 50 75 120)
-    (stroke-weight 2))
+    (q/smooth)
+    (q/frame-rate 1)
+    (q/background 200)
+    (q/stroke 50 75 120)
+    (q/stroke-weight 2))
 
 ; Go forward s pixels: "F" (or "B"),
 ; returns the altered state
 (defn forward [state]
-    (let [ d (state "d" (radians 90)),
+    (let [ d (state "d" (q/radians 90)),
             s (state "s" 10),
-            x (+ (state "x") (* s (cos (state "a")))),
-            y (+ (state "y") (* s (sin (state "a")))),
+            x (+ (state "x") (* s (q/cos (state "a")))),
+            y (+ (state "y") (* s (q/sin (state "a")))),
             a (state "a")]
-        (line (state "x") (state "y") x y)
-        {"x" x, "y" y, "a" a, "d" d, "s" s}))
+        (q/line (state "x") (state "y") x y)
+        (-> (assoc state "x" x) (assoc "y" y))))
 
 ; Turn right d degrees: "-". Returns altered state
 (defn right [state]
-    {"x" (state "x"),
-    "y" (state "y"),
-    "a" (+ (state "a") (state "d")),
-    "d" (state "d" (radians 90)),
-    "s" (state "s" 10)})
+  (assoc state "a" (+ (state "a") (state "d"))))
 
 ; Turn left d degrees, "+". return the aleterd state
 (defn left [state]
-    {"x" (state "x"),
-    "y" (state "y"),
-    "a" (- (state "a") (state "d")),
-    "d" (state "d" (radians 90)),
-    "s" (state "s" 10)})
+  (assoc state "a" (- (state "a") (state "d"))))
 
 ; parse a single command/character
 ; in a certain state s
@@ -83,34 +75,48 @@
 ; Koch curve
 (def koch-curve (evolve 3 "F" {"F" "F+F-F-F+F"}))
 
+; Gosper curve
+(def gosper-curve (evolve 3 "F" {"F" "F-B--B+F++FF+B-", "B" "+F-BB--B-F++F+B"}))
+
 (defn draw []
-    (background 200)
+    (q/background 200)
     ;(stroke-weight (random 8))
 
     ; Sierpinski 2
-    (parse {"x" 100, "y" 50, "a" 0.0, "s" 30, "d" (radians 120)} sierpinski-triangle2))
+    ; (parse {"x" 100, "y" 50, "a" 0.0, "s" 30, "d" (q/radians 120)} sierpinski-triangle2))
 
     ; Sierpinski triangle 1
-    ;(parse {"x" 100, "y" 450, "a" 0.0, "s" 30, "d" (radians 60)} sierpinski-triangle1))
+    ;(parse {"x" 100, "y" 450, "a" 0.0, "s" 30, "d" (q/radians 60)} sierpinski-triangle1))
 
     ; Dragon curve
-    ;(parse {"x" 350, "y" 350, "a" 0.0, "s" 8, "d" (radians 90)} dragon-curve))
+    ;(parse {"x" 350, "y" 350, "a" 0.0, "s" 8, "d" (q/radians 90)} dragon-curve))
 
     ; quad koch island
-    ;(parse {"x" 125, "y" 400, "a" 0.0, "s" 5, "d" (radians 90)} quadratic-koch-island))
+    ;(parse {"x" 125, "y" 400, "a" 0.0, "s" 5, "d" (q/radians 90)} quadratic-koch-island))
 
     ; Koch curve
-    ;(parse {"x" 15, "y" 420, "a" 0.0, "s" 25, "d" (radians 90)} koch-curve))
+    ;(parse {"x" 15, "y" 420, "a" 0.0, "s" 25, "d" (q/radians 90)} koch-curve))
 
     ; Test
-    ;(parse {"x" 0, "y" 150, "a" 0.0, "s" 10, "d" (radians 90)} "F-FF+FF"))
+    ;(parse {"x" 0, "y" 150, "a" 0.0, "s" 10, "d" (q/radians 90)} "F-FF+FF"))
 
-(defsketch spots-n-tris
+    ; Gosper!
+    (parse {"x" 350 "y" 30, "a" 0.0 "s" 20 "d" (q/radians 60)} gosper-curve))
+
+(defn key-released []
+  (q/save
+    (str "lsysclj_"
+         (q/year) "-"
+         (q/month) "-"
+         (q/day) "_"
+         (q/hour) "_"
+         (q/minute) "_"
+         (q/seconds) ".png")))
+
+(q/defsketch lsysclj
     :title "Clojure L-system"
     :setup setup
     :draw draw
-    :size [700 500])
-
-(defn -main []
-    (println "Starting..."))
-
+    :size [700 500]
+    :features [:keep-on-top]
+    :mouse-clicked key-released)
