@@ -10,7 +10,7 @@
     (q/frame-rate 1)
     (q/background 200)
     (q/stroke 50 75 120)
-    (q/stroke-weight 2))
+    (q/stroke-weight 1))
 
 ; Go forward s pixels: "F" (or "B"),
 ; returns the altered state
@@ -92,6 +92,10 @@
 
 (def plant (evolve 6 "F" {"F" "F[+F][-F]"}))
 
+(def advanced-plant (evolve 6 "X" {"X" "F[−X][X]F[−X]+FX", "F" "FF"}))
+
+(def penrose (evolve 2 "[X]++[X]++[X]++[X]++[X]" {"X" "+YF--ZF[3-WF--XF]+", "W" "YF++ZF4-XF[-YF4-WF]++", "Y" "-WF++XF[+++YF++ZF]-", "Z" "--YF++++WF[+ZF++++XF]--XF"}))
+
 (defn draw []
     (q/background 200)
     ;(stroke-weight (random 8))
@@ -114,10 +118,16 @@
     ; Test
     ;(parse {"x" 0, "y" 150, "a" 0.0, "s" 10, "d" (q/radians 90)} "F-FF+FF"))
 
-    ; Gosper!
+    ; Gosper
     ; (parse {"x" 350 "y" 30, "a" 0.0 "s" 20 "d" (q/radians 60)} gosper-curve))
 
-    (parse {"stack" [] "x" 350 "y" 450 "a" -1.6 "s" 50 "d" (q/radians 20)} plant))
+    ; Plant (stack test)
+    ; (parse {"stack" [] "x" 350 "y" 450 "a" -1.6 "s" 50 "d" (q/radians 20)} plant))
+
+    ; Advanced plant
+    ; (parse {"stack" [] "x" -600 "y" 600 "a" 0.0 "s" 8 "d" (q/radians 25)} advanced-plant))
+
+    (parse {"stack" [] "x" 350 "y" 250 "a" 0.0 "s" 25 "d" (q/radians 36)} penrose))
 
 (defn key-released []
   (q/save
