@@ -1,5 +1,5 @@
 ; L-system
-; 2012 - 2016 Joel Carlbark
+; 2012 - 2018 Joel Carlbark
 
 (ns lsysclj.core
     (:require [quil.core :as q]
@@ -14,7 +14,7 @@
 
 ; Go forward s pixels: "F" (or "B"),
 ; returns the altered state
-(defn forward [state]
+(defn cmd-forward [state]
     (let [ d (state "d" (q/radians 90)),
             s (state "s" 10),
             x (+ (state "x") (* s (q/cos (state "a")))),
@@ -24,22 +24,34 @@
         (-> (assoc state "x" x) (assoc "y" y))))
 
 ; Turn right d degrees: "-". Returns altered state
-(defn right [state]
+(defn cmd-right [state]
   (assoc state "a" (+ (state "a") (state "d"))))
 
 ; Turn left d degrees, "+". return the aleterd state
-(defn left [state]
+(defn cmd-left [state]
   (assoc state "a" (- (state "a") (state "d"))))
+
+; Push the current state onto the stack
+(defn cmd-push [state]
+  (assoc state "stack" (conj (state "stack") state)))
+
+; Take the last state from the stack
+(defn cmd-pop [state]
+  (if (empty? (state "stack"))
+    state
+    (last (state "stack"))))
 
 ; parse a single command/character
 ; in a certain state s
 ; Supported commands: F, B + and -
 (defn parse-cmd [s cmd]
   (cond
-    (= cmd "F") (forward s)
-    (= cmd "B") (forward s)
-    (= cmd "+") (left s)
-    (= cmd "-") (right s)
+    (= cmd "F") (cmd-forward s)
+    (= cmd "B") (cmd-forward s)
+    (= cmd "+") (cmd-left s)
+    (= cmd "-") (cmd-right s)
+    (= cmd "[") (cmd-push s)
+    (= cmd "]") (cmd-pop s)
     :else s))
 
 ; Parse the whole string of commands
@@ -78,6 +90,8 @@
 ; Gosper curve
 (def gosper-curve (evolve 3 "F" {"F" "F-B--B+F++FF+B-", "B" "+F-BB--B-F++F+B"}))
 
+(def plant (evolve 6 "F" {"F" "F[+F][-F]"}))
+
 (defn draw []
     (q/background 200)
     ;(stroke-weight (random 8))
@@ -101,7 +115,9 @@
     ;(parse {"x" 0, "y" 150, "a" 0.0, "s" 10, "d" (q/radians 90)} "F-FF+FF"))
 
     ; Gosper!
-    (parse {"x" 350 "y" 30, "a" 0.0 "s" 20 "d" (q/radians 60)} gosper-curve))
+    ; (parse {"x" 350 "y" 30, "a" 0.0 "s" 20 "d" (q/radians 60)} gosper-curve))
+
+    (parse {"stack" [] "x" 350 "y" 450 "a" -1.6 "s" 50 "d" (q/radians 20)} plant))
 
 (defn key-released []
   (q/save
