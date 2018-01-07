@@ -96,6 +96,11 @@
 
 (def penrose (evolve 2 "[X]++[X]++[X]++[X]++[X]" {"X" "+YF--ZF[3-WF--XF]+", "W" "YF++ZF4-XF[-YF4-WF]++", "Y" "-WF++XF[+++YF++ZF]-", "Z" "--YF++++WF[+ZF++++XF]--XF"}))
 
+(def pattern (evolve 7 "W" {"W" "+++X--F--ZFX+", "X" "---W++F++YFW-", "Y" "+ZFX--F--Z+++", "Z" "-YFW++F++Y---"}))
+
+; https://es.wikipedia.org/wiki/Teselaci%C3%B3n_de_Penrose
+(def penrose3 (evolve 3 "[N]++[N]++[N]++[N]++[N]" {"M" "OF++PF----NF[-OF----MF]++", "N" "+OF--PF[---MF--NF]+", "O" "-MF++NF[+++OF++PF]-", "P" "--OF++++MF[+PF++++NF]--NF"}))
+
 (defn draw []
     (q/background 200)
     ;(stroke-weight (random 8))
@@ -127,7 +132,14 @@
     ; Advanced plant
     ; (parse {"stack" [] "x" -600 "y" 600 "a" 0.0 "s" 8 "d" (q/radians 25)} advanced-plant))
 
-    (parse {"stack" [] "x" 350 "y" 250 "a" 0.0 "s" 25 "d" (q/radians 36)} penrose))
+    ; Penrosy
+    ;(parse {"stack" [] "x" 350 "y" 250 "a" 0.0 "s" 25 "d" (q/radians 36)} penrose))
+
+    ; Pattern
+    ;(parse {"stack" [] "x" 50 "y" 450 "a" 0.0 "s" 7 "d" (q/radians 30)} pattern))
+
+    ; Penrose3
+    (parse {"stack" [] "x" 350 "y" 250 "a" 0.0 "s" 30 "d" (q/radians 36)} penrose3))
 
 (defn key-released []
   (q/save
