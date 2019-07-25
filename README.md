@@ -2,6 +2,8 @@
 
 Basic l-system as a first clojure contact. Disregard.
 
+![lsysclj screenshot](lsysclj_2018-1-7_19_5_3.png)
+
 ## Pre-requisites
 
 - Java 8. [Quil](https://github.com/quil/quil/issues/228) (and Processing?) does not fully support Java 9 yet.
